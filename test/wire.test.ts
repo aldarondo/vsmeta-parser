@@ -51,6 +51,15 @@ describe('readVarint', () => {
     expect(val).toBe(5n);
     expect(pos).toBe(3);
   });
+
+  it('stops after 10 bytes for an unterminated varint (malformed input)', () => {
+    // A buffer of 20 bytes each with the MSB set — no termination byte.
+    // readVarint must stop after consuming at most 10 bytes and not grow a
+    // huge BigInt (prevents DoS via memory exhaustion).
+    const buf = Buffer.alloc(20, 0x80);
+    const [, newPos] = readVarint(buf, 0);
+    expect(newPos).toBe(10);
+  });
 });
 
 describe('readTag', () => {

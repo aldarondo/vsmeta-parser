@@ -149,7 +149,7 @@ function parseTmdbJson(data: Buffer, result: VsMetaData): void {
     if (typeof ref?.['imdb'] === 'string') result.imdbId = ref['imdb'];
     if (ref?.['themoviedb'] != null) result.tmdbId = String(ref['themoviedb']);
     // Use JSON rating as fallback only when field 12 was absent
-    if (result.rating === 0 && typeof ratingObj?.['themoviedb'] === 'number') {
+    if (result.rating === 0 && typeof ratingObj?.['themoviedb'] === 'number' && isFinite(ratingObj['themoviedb'] as number)) {
       result.rating = ratingObj['themoviedb'] as number;
     }
   } catch { /* v8 ignore next - defensive: malformed JSON is silently ignored */ }

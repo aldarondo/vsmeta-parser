@@ -147,6 +147,15 @@ describe('parseVsMeta', () => {
     expect(result.tmdbId).toBe('');
   });
 
+  it('ignores a non-finite themoviedb rating and keeps rating at 0', () => {
+    // Build a JSON payload that contains a non-finite number for the rating.
+    // The isFinite() guard in parseTmdbJson must reject it and leave rating as 0.
+    // Standard JSON.parse('{"x":1e309}') → {x: Infinity} in V8.
+    const buf = buildVsMeta(stringField(9, '{"com.synology.TheMovieDb":{"rating":{"themoviedb":1e309}}}'));
+    const result = parseVsMeta(buf);
+    expect(result.rating).toBe(0); // Infinity is not finite → rejected
+  });
+
   it('wires up cast/crew from field 10', () => {
     const castBuf = Buffer.from([
       ...stringField(1, 'Actor One'),
