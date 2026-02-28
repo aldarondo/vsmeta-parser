@@ -122,7 +122,6 @@ describe('readLengthDelimited', () => {
   });
 
   it('reads from the given offset', () => {
-    const payload = Buffer.from([0xde, 0xad]);
     // prefix byte with a skip byte before
     const buf = Buffer.from([0xff, 0x02, 0xde, 0xad]);
     const [data, newPos] = readLengthDelimited(buf, 1); // skip 0xff
