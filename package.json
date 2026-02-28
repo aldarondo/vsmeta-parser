@@ -1,6 +1,6 @@
 {
   "name": "vsmeta-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parse Synology DS Video .vsmeta binary metadata files",
   "type": "module",
   "main": "./dist/index.cjs",
