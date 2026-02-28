@@ -25,6 +25,7 @@ export function readVarint(buf: Buffer, pos: number): [bigint, number] {
     result |= BigInt(b & 0x7f) << shift;
     if (!(b & 0x80)) break;
     shift += 7n;
+    if (shift > 63n) break; // varint exceeds 10 bytes — malformed input, stop
   }
   return [result, pos];
 }
