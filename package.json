@@ -60,6 +60,7 @@
     "@types/node": "^20.19.35",
     "@vitest/coverage-v8": "^2.1.9",
     "eslint": "^9.0.0",
+    "jiti": "^2.6.1",
     "prettier": "^3.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.4.0",
